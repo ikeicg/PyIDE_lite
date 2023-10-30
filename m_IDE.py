@@ -7,11 +7,14 @@ import subprocess
 import re #regex library
 
 process = None
+
 def run_code(self):
     code = text_widget.get("1.0", tk.END)
-
+    
     try:
         global process
+
+        
         # Start the subprocess
         process = subprocess.Popen(
             ["python", "compiler.py", code],
@@ -42,6 +45,7 @@ def run_code(self):
         output_text.insert(tk.END, f"Error: {str(e)}")
         output_text.config(state=tk.DISABLED)
 
+    
 def open_file(self):
     global current_file_path
     file_path = filedialog.askopenfilename(filetypes=[("Python Files", "*.py")])

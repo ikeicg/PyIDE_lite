@@ -63,6 +63,7 @@ class Lexer:
             elif self.curChar == '/':
                 token = Token("TT_DIV", self.curChar, self.curPos, self.curPos)
                 self.tokenList.append(token)
+            
             elif self.curChar == '=':
                 # Check whether this token is = or ==
                 if self.peek() == '=':

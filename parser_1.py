@@ -56,7 +56,7 @@ class Parser:
         elif self.curTok.type == "TT_EOF":
             return LfNode(tok)
         else:
-            sys.exit("Parsing Error: Expected a number ")
+            sys.exit("Parsing Error: Expected a number, but got")
 
 
     def BiOptn(self, func, opts):
