@@ -1,5 +1,5 @@
 from lexer import *
-from parser import *
+from parser_1 import *
 from interpreter import *
 import sys
 

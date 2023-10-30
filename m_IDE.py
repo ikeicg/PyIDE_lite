@@ -1,11 +1,13 @@
 import tkinter as tk
+from tkinter import *
+import tkinter.ttk as ttk
 import tkinter.scrolledtext as scrolledtext
 from tkinter import filedialog  #allows file system controls
 import subprocess
 import re #regex library
 
 process = None
-def run_code():
+def run_code(self):
     code = text_widget.get("1.0", tk.END)
 
     try:
@@ -40,7 +42,7 @@ def run_code():
         output_text.insert(tk.END, f"Error: {str(e)}")
         output_text.config(state=tk.DISABLED)
 
-def open_file():
+def open_file(self):
     global current_file_path
     file_path = filedialog.askopenfilename(filetypes=[("Python Files", "*.py")])
     if file_path:
@@ -51,7 +53,7 @@ def open_file():
             current_file_path = file_path  # Set the current file path
     highlight_keywords()  # Highlight keywords after opening the file
 
-def save_file():
+def save_file(self):
     global current_file_path
     if current_file_path:
         # If a file path is already set, save to it
@@ -142,10 +144,19 @@ def highlight_keywords(event=None):
             end_index = f"{line_number}.{match.end()}"
             text_widget.tag_add("string", start_index, end_index)
             text_widget.tag_configure("string", foreground="purple", font=("TkDefaultFont", 10, "bold"))
+def light():
+    text_widget.config(fg="black", bg="white")
+    output_text.config(fg="black", bg="white")
+
+def dark():
+    text_widget.config(fg="white", bg="#393939")
+    output_text.config(fg="white", bg="#393939")
 
 
 root = tk.Tk()
 root.title("Python IDE")
+
+
 
 # Create a menu bar
 menu_bar = tk.Menu(root)
@@ -154,14 +165,24 @@ root.config(menu=menu_bar)
 # Create a "File" menu
 file_menu = tk.Menu(menu_bar, tearoff=False)
 menu_bar.add_cascade(label="File", menu=file_menu)
-file_menu.add_command(label="Open", command=open_file)
-file_menu.add_command(label="Save", command=save_file)
-file_menu.add_command(label="Save As", command=save_file)
+file_menu.add_command(label="Open",accelerator= "Ctrl+O", command=open_file)
+file_menu.add_command(label="Save", accelerator= "Ctrl+S", command=save_file)
+file_menu.add_command(label="Save As", accelerator= "Ctrl+Shift+S" ,command=save_file)
 
 # Create a "Run" menu
 run_menu = tk.Menu(menu_bar, tearoff=False)
 menu_bar.add_cascade(label="Run", menu=run_menu)
-run_menu.add_command(label="Run Code", command=run_code)
+run_menu.add_command(label="Run Code",accelerator="F5", command=run_code)
+
+#Theme Widget
+theme_menu = tk.Menu(menu_bar, tearoff=False)
+menu_bar.add_cascade(label="Theme", menu=theme_menu)
+theme_menu.add_command(label="Light", command=light)
+theme_menu.add_command(label="Dark", command=dark)
+
+
+
+# Create a "Help" menu
 
 # Create a text widget for code input
 text_widget = scrolledtext.ScrolledText(root, wrap=tk.WORD)
@@ -178,8 +199,11 @@ output_text.tag_configure("error", foreground="red")
 output_text.config(state=tk.DISABLED)
 
 
+
 # Initialize the current file path
 current_file_path = None
 
-# Start the Tkinter main loop
+root.bind('<Control-s>', save_file)
+root.bind('<F5>', run_code)
+root.bind('<Control-o>', open_file)
 root.mainloop()
