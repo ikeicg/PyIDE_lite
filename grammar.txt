@@ -1,6 +1,8 @@
 <program>       :   { <statement> }
-<statement>     :   <expression>
+<statement>     :   <TT_IDENT> <"="> <expression>
+                |   <"print"> <(> expression <)>
 <expression>    :   <term> ((<TT_PLUS> | <TT_MINUS>) <term>)
-<term>          :   <factor> ((<TT_MULT> | <TT_DIV>) <factor>)
+<term>          :   <exponent> ((<TT_MULT> | <TT_DIV>) <exponent>)
+<exponent>      :   <factor> ((<TT_POW>) <factor>)
 <factor>        :   <TT_NUMBER>
                 |   <TT_LPAREN> <expression> <LT_RPAREN>

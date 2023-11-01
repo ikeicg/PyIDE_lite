@@ -58,7 +58,12 @@ class Lexer:
                 token = Token("TT_MINUS", self.curChar, self.curPos, self.curPos)
                 self.tokenList.append(token)
             elif self.curChar == '*':
-                token = Token("TT_MULT", self.curChar, self.curPos, self.curPos)
+                if self.peek() == '*':
+                    lastChar = self.curChar
+                    self.nextChar()
+                    token = Token("TT_POW", lastChar + self.curChar, self.curPos - 1, self.curPos)
+                else:
+                    token = Token("TT_MULT", self.curChar, self.curPos, self.curPos)
                 self.tokenList.append(token)
             elif self.curChar == '/':
                 token = Token("TT_DIV", self.curChar, self.curPos, self.curPos)
@@ -238,8 +243,12 @@ class IdentToken(Token):
         return f'{self.type}'
 
     def read(self, obj):
-        if obj.datastack[self.value]:
-            return obj.datastack[self.value]
+
+        try:
+            if obj.datastack[self.value]:
+                return obj.datastack[self.value]
+        except:
+            sys.exit(f"Runtime Error: Cannot read variable '{self.value}'")
         return None
 
 

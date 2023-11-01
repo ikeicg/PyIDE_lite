@@ -6,4 +6,4 @@ class Interpreter:
 
     def execute(self):
         for ast in self.asts:
-            print(ast.read(self))
+            ast.read(self)

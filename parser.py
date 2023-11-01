@@ -14,7 +14,6 @@ class Parser:
 
     def runParse(self):
         statements = []
-        # statements.append(self.isExpression())
 
         while self.curTok.type != "TT_EOF":
 
@@ -22,27 +21,55 @@ class Parser:
                 self.advance()
                 continue
 
-            statements.append(self.isExpression())
+            statements.append(self.isStatement())
 
             if self.tokens[self.curPos].type != "TT_NWL":
-                sys.exit("Parsing Error: expected newline")
+                sys.exit("Parsing Error: invalid statement line")
 
 
         return statements
 
     def isStatement(self):
-        pass
+
+        if self.curTok.type == "TT_IDENT":  # assignment statement
+            identifier = self.curTok
+            self.advance()
+            if self.curTok.type == "TT_EQ":
+                self.advance()
+                expression = self.isExpression()
+                return AssignStmt(identifier, expression)
+        elif self.curTok.type == "TT_KEYW" and self.curTok.value == "print":  # print statement
+            self.advance()
+            if self.curTok.type == "TT_LPAREN":
+                self.advance()
+                expression = self.isExpression()
+
+                if self.curTok.type == "TT_RPAREN":
+                    self.advance()
+                    return PrintStmt(expression)
+                else:
+                    sys.exit("Parsing Error: expected ')' ")
+            else:
+                sys.exit("Parsing Error: expected '(' ")
+
 
     def isExpression(self):
         return  self.BiOptn(self.isTerm, ["TT_PLUS", "TT_MINUS"])
 
     def isTerm(self):
-        return  self.BiOptn(self.isFactor, ["TT_MULT", "TT_DIV"])
+        return  self.BiOptn(self.isExponent, ["TT_MULT", "TT_DIV"])
+
+    def isExponent(self):
+        return self.BiOptn(self.isFactor, ["TT_POW"])
 
     def isFactor(self):
         tok = self.curTok
+        # print("test1", tok)
 
         if self.curTok.type == "TT_NUMBER":
+            self.advance()
+            return LfNode(tok)
+        elif self.curTok.type == "TT_IDENT":
             self.advance()
             return LfNode(tok)
         elif self.curTok.type == "TT_LPAREN":
@@ -100,3 +127,30 @@ class BiOpNode:
             return self.left_node.read(obj) / self.right_node.read(obj)
         if self.op_tok.type == "TT_MULT":
             return self.left_node.read(obj) * self.right_node.read(obj)
+        if self.op_tok.type == "TT_POW":
+            return self.left_node.read(obj) ** self.right_node.read(obj)
+
+# class Assign
+class AssignStmt:
+
+    def __init__(self, ident, value):
+        self.identifier = ident.value
+        self.value = value
+
+    def __repr__(self):
+        return f"{self.identifier} = {self.value}"
+
+    def read(self, obj):
+        obj.datastack[self.identifier] = self.value.read(obj)
+
+
+class PrintStmt:
+
+    def __init__(self, value):
+        self.value = value
+
+    def __repr__(self):
+        return f"print({self.value})"
+
+    def read(self, obj):
+         print(self.value.read(obj))
