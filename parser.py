@@ -83,7 +83,7 @@ class Parser:
         elif self.curTok.type == "TT_EOF":
             return LfNode(tok)
         else:
-            sys.exit("Parsing Error: Expected a number ")
+            sys.exit("Parsing Error: Expected a number, but got")
 
 
     def BiOptn(self, func, opts):
@@ -130,7 +130,7 @@ class BiOpNode:
         if self.op_tok.type == "TT_POW":
             return self.left_node.read(obj) ** self.right_node.read(obj)
 
-# class Assign
+# Assign Statement
 class AssignStmt:
 
     def __init__(self, ident, value):
@@ -143,7 +143,7 @@ class AssignStmt:
     def read(self, obj):
         obj.datastack[self.identifier] = self.value.read(obj)
 
-
+# Print Statement
 class PrintStmt:
 
     def __init__(self, value):
