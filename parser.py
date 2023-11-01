@@ -21,10 +21,14 @@ class Parser:
                 self.advance()
                 continue
 
-            statements.append(self.isStatement())
+            statement = self.isStatement()
+            if statement:
+                statements.append(statement)
+            else:
+                sys.exit("Parsing Error: invalid statement line")
 
             if self.tokens[self.curPos].type != "TT_NWL":
-                sys.exit("Parsing Error: invalid statement line")
+                sys.exit("Parsing Error: expected newline")
 
 
         return statements

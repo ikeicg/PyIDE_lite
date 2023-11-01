@@ -202,8 +202,6 @@ output_text.pack(expand=True, fill='both')
 output_text.tag_configure("error", foreground="red")
 output_text.config(state=tk.DISABLED)
 
-
-
 # Initialize the current file path
 current_file_path = None
 
