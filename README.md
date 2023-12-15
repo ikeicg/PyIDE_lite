@@ -9,8 +9,12 @@ The compiler/intepreter operates on basic Python syntax with a scope of the foll
 - Non-unary operators
 - Comments
 
+
 # Demo
 
-![Screenshot (236)](https://github.com/ikeicg/PyIDE_lite/assets/125681815/c482562d-14d6-4ea0-b290-baf0e6e94779)
-![Screenshot (237)](https://github.com/ikeicg/PyIDE_lite/assets/125681815/ff742373-307f-4f76-84e7-c42714dac8b4)
-![Screenshot (238)](https://github.com/ikeicg/PyIDE_lite/assets/125681815/2986b33d-5290-42bc-b103-e1703249555e)
+![Screenshot (239)](https://github.com/ikeicg/PyIDE_lite/assets/125681815/8665a96f-ba1e-45b9-9835-2caf64adfde3)
+
+![Screenshot (240)](https://github.com/ikeicg/PyIDE_lite/assets/125681815/b74cfa46-0a7f-419b-a919-dbf628ebbaea)
+
+![Screenshot (241)](https://github.com/ikeicg/PyIDE_lite/assets/125681815/5649afaa-340f-4132-bae4-ff87f887b6b7)
+
