@@ -217,7 +217,7 @@ class LineNumbers(Text):
 
 
 root = tk.Tk()
-root.title("CS-A Group-9 Python IDE")
+root.title("Python IDE")
 
 
 # Create a menu bar
