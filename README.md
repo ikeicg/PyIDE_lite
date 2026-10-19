@@ -10,20 +10,6 @@ The language covers:
 
 Not supported: unary operators (`-3`), strings, conditions, loops and functions.
 
-## Run it
-
-Needs Python 3 and Tkinter (included with the standard Python installers). No other packages.
-
-```bash
-python IDE.py                                  # the editor
-python interpreter.py "x = 2 + 3 * 4
-print(x)"                                      # run source directly
-python compiler.py "x = 2 + 3 * 4
-print(x)"                                      # compile to bytecode.txt, then run it
-```
-
-Run these from the project folder. In the editor, Run → Execute (or F5) uses the compiler.
-
 ## How it works
 
 ```
