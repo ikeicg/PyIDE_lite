@@ -48,11 +48,9 @@ class IdentToken(Token):
     def read(self, obj):
 
         try:
-            if obj.datastack[self.value]:
-                return obj.datastack[self.value]
-        except:
+            return obj.datastack[self.value]
+        except KeyError:
             sys.exit(f"Runtime Error: Cannot read variable '{self.value}'")
-        return None
 
     def gen_bytecode(self):
         return [f"LOAD_NAME:{self.value}"]

@@ -93,7 +93,7 @@ class VirtualMachine:
             elif opcode == 'LOAD_CONST':
                 if operand == "memory":
                     self.datastack.append(self.datastore)
-                if operand.isdigit():
+                else:
                     self.datastack.append(float(operand))
             elif opcode.startswith('BINARY_'):
                 b = float(self.datastack.pop())

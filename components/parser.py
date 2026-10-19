@@ -1,4 +1,4 @@
-from PyIDE_lite.components.classfile import *
+from components.classfile import *
 
 class Parser:
 
@@ -77,7 +77,15 @@ class Parser:
         return self.formBiOp(self.ispower, ["TT_MULT", "TT_DIV"])
 
     def ispower(self):
-        return self.formBiOp(self.isprimary, ["TT_POW"])
+        base = self.isprimary()
+
+        if self.curTok.type == "TT_POW":
+            optn = self.curTok
+            self.advance()
+            exponent = self.ispower()
+            return BiOpNode(base, optn, exponent)
+
+        return base
 
     def isprimary(self):
 

@@ -1,4 +1,4 @@
-from PyIDE_lite.components.classfile import *
+from components.classfile import *
 
 class Lexer:
 
